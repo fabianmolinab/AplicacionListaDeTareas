@@ -1,14 +1,24 @@
-import '../css/componentes.css';
 
+const divTodoList = document.querySelector('.todo-list');
 
+export const crearTodoHtml = ( todo ) => {
 
-export const saludar = ( nombre ) => {
+    const htmlTodo = `
+        <li class="${ (todo.completado) ? 'completed' : ''}" data-id="${ todo.id }">
+            <div class="view">
+                <input class="toggle" type="checkbox" ${ (todo.completado) ? 'checked' : ''}>
+                <label>${ todo.tarea }</label>
+                <button class="destroy"></button>
+            </div>
+            <input class="edit" value="Create a TodoMVC template">
+        </li>
+    `;
 
-    console.log('Creando etiqueta h1, en el HTML!');
+    const div = document.createElement('div');
 
-    const h1 = document.createElement('h1');
-    h1.innerText = `Hola, ${ nombre }`;
+    div.innerHTML = htmlTodo;
 
-    document.body.append( h1 );
+    divTodoList.append( div.firstElementChild );
 
+    return div;
 }
