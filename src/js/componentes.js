@@ -33,14 +33,23 @@ export const crearTodoHtml = ( todo ) => {
 txtInput.addEventListener('keyup',( event ) => {
 
     // Evaluamos al dar ENTER
+    
+    //Comprobación para no ejecutar tareas vacias o con espacios
+    var comprobacionVacio = false;
+        
+    if( txtInput.value !== '' && txtInput.value !== ' ' && txtInput.value !== '  ' && txtInput.value !== '   ' && txtInput.value !== '    ') {
+        
+        var comprobacionVacio = true; 
+    }
 
-    if( event.keyCode === 13 && txtInput.value !== '' && txtInput.value !== ' ' ){
-
+    
+    if( event.keyCode === 13 && comprobacionVacio === true ){
 
         const nuevoTodo = new Todo ( txtInput.value );
         todoList.nuevoTodo( nuevoTodo );
         crearTodoHtml ( nuevoTodo );
         txtInput.value = '';
+
     }
 });
 
