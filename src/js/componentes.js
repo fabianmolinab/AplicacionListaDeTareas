@@ -2,9 +2,11 @@ import { Todo } from '../classes/todo.class';
 import { todoList } from '../index';
 
 //Referencias en el HTML
-const divTodoList = document.querySelector('.todo-list');
-const txtInput    = document.querySelector('.new-todo');
-const btnBorrar   = document.querySelector('.clear-completed');
+const divTodoList   = document.querySelector('.todo-list');
+const txtInput      = document.querySelector('.new-todo');
+const btnBorrar     = document.querySelector('.clear-completed');
+const ulFiltors     = document.querySelector('.filters');
+const anchorFiltros = document.querySelectorAll('.filtro');
 
 export const crearTodoHtml = ( todo ) => {
 
@@ -91,3 +93,40 @@ btnBorrar.addEventListener('click', () => {
         }
     }
 });
+
+ulFiltors.addEventListener('click', (event) => {
+
+    const filtroClick = event.target.text;
+    if( !filtroClick ){ return; }
+
+    anchorFiltros.forEach( elem => elem.classList.remove('selected'));
+
+    event.target.classList.add('selected');
+
+    for( const elemento of divTodoList.children ) {
+
+        elemento.classList.remove('hidden');
+        const completado = elemento.classList.contains('completed');
+
+        switch ( filtroClick ) {
+            case 'Pendientes':
+                if(  completado ){
+                    
+                    elemento.classList.add('hidden');
+
+                }
+                
+                break;
+
+            case 'Completados': 
+                if( !completado ) {
+
+                    elemento.classList.add('hidden');
+
+                }
+            break;
+        }
+
+    }
+
+})
